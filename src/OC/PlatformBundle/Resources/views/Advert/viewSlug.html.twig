@@ -1,0 +1,13 @@
+#{{ advert.id }}, {{ advert.author }}, {{ advert.date|date('d/m/y') }}<br />
+{{ advert.image.url }}<br />
+{% for category in advert.categories %}
+{{ category.name }},
+{% endfor %}<br />
+{% for application in advert.applications %}
+{{ application.author }} {{ application.content }} {{ application.date|date('d/m/y') }},
+{% endfor %}<br />
+{% for advertSkill in advert.advertSkills %}
+{{ advertSkill.skill.name }} ({{ advertSkill.level }}), 
+{% endfor %}<br />
+
+</body>

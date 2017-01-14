@@ -1,0 +1,18 @@
+<html>
+  <body>
+    {{ 'Hello'|trans({'%name%': name}) }} {{ 'pseudo'|trans({'%de%': 'du monde'}, 'domaine') }}
+    <br /><br />
+    {% trans with {'%name%': 'moi-même'} %}Hello{% endtrans %}
+    {% trans with {'%de%': 'de l\'univers'} from 'domaine' %}pseudo{% endtrans %}
+    <br /><br />
+    {{ 'Au revoir'|trans }} {{ name }}
+    <br /><br />
+    {{ 'charte.titre'|trans }}
+    <br /><br />
+    {% for i in 0..2 %}
+      {{ ('charte.donnee.' ~ i)|trans }}
+      <br /><br />
+    {% endfor %}
+  </body>
+</html>
+

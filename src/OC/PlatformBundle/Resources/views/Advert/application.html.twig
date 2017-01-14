@@ -1,0 +1,67 @@
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Candidature - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+  
+  <h1>Déposer une candidature</h1>
+  <h2>#{{ advert.id }} {{ advert.title }}</h2>
+  <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+  <p>{{ advert.content }}</p>
+  {% if advert.categories is not empty %}
+    <p>
+      Catétories :
+      {% for category in advert.categories %}
+        {{ category.name }}{% if not loop.last %},{% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+  {% if advert.advertSkills is not empty %}
+    <p>
+      Compétences requises :
+      <ul>
+        {% for advertSkill in advert.advertSkills %}
+          <li>{{ advertSkill.skill.name }} ({{ advertSkill.level }})</li>
+        {% endfor %}
+      </ul> 
+    </p>
+  {% endif %}
+  <div class="well">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_errors(form) }}
+    <div class="form-group">
+        {{ form_label(form.author, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form.author) }}
+        <div class="col-sm-10">
+          {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}    
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.email, "Email", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form.email) }}
+        <div class="col-sm-10">
+          {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}    
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.content, "Message", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form.content) }}
+        <div class="col-sm-10">
+          {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}    
+        </div>
+    </div>
+
+    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    
+  </div>
+  <p>
+    <a href="{{ path('oc_platform_view', {'advert_id': advert.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à l'annonce
+    </a>
+  </p>
+{% endblock %}
